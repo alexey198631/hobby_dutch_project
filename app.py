@@ -3,6 +3,9 @@ from defs import *
 from cls import *
 from sound import *
 
+
+print('it is exam branch')
+
 try:
     words = next_load()[0]
     lesson_df = next_load()[1]
