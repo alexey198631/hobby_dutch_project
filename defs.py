@@ -20,9 +20,20 @@ def next_load():  # load data from existing file
     words = words.loc[:, 'word':]
     lesson_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='lesson')
     lesson_df = lesson_df.loc[:, 'lesson':]
+    try:
+        exam_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='exams')
+        exam_df = exam_df.loc[:,'n#':]
+    except:
+        exam_df = pd.DataFrame()
+        exam_df['n#'] = 0
+        exam_df['date'] = 0
+        exam_df['size'] = 0
+        exam_df['pts'] = 0
+        exam_df['lang'] = 0
+
     exist = 'yes'
 
-    return words, lesson_df, exist
+    return words, lesson_df, exist, exam_df
 
 
 def loadWords(df_words, temp):  # data frame from xlsx file with words, it creates list of class Words
@@ -241,7 +252,7 @@ def place(df, rep):
           ')
 
 
-def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample):
+def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam_df):
     if exist == 'yes':
         dutch = words.copy()
 
@@ -305,6 +316,7 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample):
     writer = pd.ExcelWriter('/Users/aleksejgukov/Desktop/dutch.xlsx', engine='xlsxwriter')
     dutch.to_excel(writer, sheet_name='update')
     lesson_df.to_excel(writer, sheet_name='lesson')
+    exam_df.to_excel(writer, sheet_name='exams')
     writer.save()
 
     for w in sample:
@@ -314,70 +326,3 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample):
 
     print('Lesson #:', lessonNumber.getNumber(), 'time spent:', lessonNumber.getTime(), 'points: ',
           lessonNumber.getPoints(), '\n')
-
-
-# def exam(df_words):
-#
-#     n = int(input('How many words? 10, 20, 30, 40, 50, 100'))
-#     rever = int(input('0 - for Dutch -> English, 1 - for English -> Dutch'))
-#     df = df_words.copy()
-#     words = df[df['weight'] <= 35.0]
-#     wl = loadWords(words, 'yes')
-#     sample = random_sample(wl, n)
-#     s = sample.copy()
-#     p = 0
-#     while len(s) > 0:
-#         random.shuffle(s)
-#         lst_to_delete = []
-#         for i in s:
-#             temp = right_word(i.getWord(), i.getTranslation(), rever)
-#             if temp[0]:
-#                 print("\nRIGHT!")
-#                 p = p + temp[1]
-#                 lst_to_delete.append(i)
-#             else:
-#                 print("\nWRONG!")
-#                 p = p - temp[1]
-#                 p -= 1
-#                 if rever == 0:
-#                     i.addTrials_d()
-#                 else:
-#                     i.addTrials_r()
-#         if len(lst_to_delete) > 0:
-#             for w in lst_to_delete:
-#                 s.remove(w)
-#             if len(s) != 0:
-#                 plotting(s)
-#         else:
-#             if len(s) != 0:
-#                 plotting(s)
-#     print(p)
-#
-#     point_counter = 0
-#     if rever == 1:
-#         while True:
-#             x = input(f'\nPress "1","2","3" to open 1, 2, 3 letters in the word\n\n {translation}: ')
-#             if x == word:
-#                 return [True, point_counter]
-#             elif x == '1' or x == '2' or x == '3':
-#                 print(help_for_guess(word, int(x)))
-#                 point_counter += int(x)
-#             else:
-#                 return [False, point_counter]
-#
-#     elif rever == 0:
-#         translation = translation_with_comma(translation)
-#         while True:
-#             x = input(f'\nPress "1","2","3" to open 1, 2, 3 letters in the word\n\n {word}: ')
-#             if x in translation:
-#                 return [True, point_counter]
-#             elif x == '1' or x == '2' or x == '3':
-#                 print(help_for_guess(translation[0], int(x)))
-#                 point_counter += int(x)
-#             else:
-#                 return [False, point_counter]
-#
-#
-#
-#     return p
-#     return 'finish'
