@@ -14,19 +14,6 @@ except:
     lesson_df = initial_load()[1]
     exist = initial_load()[2]
 
-#print(words.head(5),exist)
-
-# exm = str(input('Is it time to have an exam? - enter "yes" if it is!'))
-#
-# if exm == 'yes':
-#     f = exam(words)
-# else:
-#     pass
-#
-# if f == 'finish':
-#     quit()
-# else:
-#     pass
 
 wordList = loadWords(words, exist)
 
