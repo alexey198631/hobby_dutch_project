@@ -4,6 +4,19 @@ from cls import *
 from sound import *
 
 
+def exam_random_sample(list_of_words, n):
+    sample = random.choices(list_of_words, weights=None, k=n)
+    ln = n
+    st = len(set([x.getWord() for x in sample]))
+    count = 0
+    while ln != st:
+        print('count = ', count, 'len = ', ln, 'set = ', st)
+        sample = random.choices(list_of_words, weights=None, k=n)
+        st = len(set([x.getWord() for x in sample]))
+        count += 1
+    return sample
+
+
 def exam_right_word(word, translation, rever=0):
     point_counter = 0
     if rever == 1:
@@ -71,7 +84,6 @@ def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev):
     writer.save()
 
 
-
 def exam_mode():
     try:
         words = next_load()[0]
@@ -82,7 +94,7 @@ def exam_mode():
     except ValueError:
         print("Oops!  You do not know anything yet! ")
 
-    words_exam = words[words['weight'] <= 35.0]
+    words_exam = words[words['weight'] <= 50.0]
 
     wordList = loadWords(words_exam, exist)
 
@@ -100,7 +112,7 @@ def exam_mode():
             rev = 'en'
         print("I'll decide myself!")
 
-    sample = random_sample(wordList, sample_size)
+    sample = exam_random_sample(wordList, sample_size)
     marks = exam_cycle(sample, rever)
     exam_final_creation(words, lesson_df, exam_df, sample, marks, rev)
     print(f'{round(marks, 2)*100}%')
