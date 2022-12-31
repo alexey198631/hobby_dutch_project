@@ -50,15 +50,18 @@ def exam_cycle(sample_of_words, rever):
             if temp[0]:
                 print("\nRIGHT!")
                 right_ans = right_ans + temp[1]
+                print(f'{right_ans} from {len(sample_of_words)}')
                 lst_to_delete.append(i)
             else:
                 print("\nWRONG!")
                 print(f'\n{i}')
                 right_ans = right_ans + temp[1]
+                print(f'Still {right_ans} from {len(sample_of_words)}')
                 lst_to_delete.append(i)
         if len(lst_to_delete) > 0:
             for w in lst_to_delete:
                 s.remove(w)
+                print(f'{len(s)} left')
 
     #print(f'{right_ans} right from {len(sample_of_words)}')
     return right_ans / len(sample_of_words)
@@ -75,6 +78,7 @@ def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev):
     exam_df.loc[row, 'date'] = datetime.now()
     exam_df.loc[row, 'size'] = len(sample)
     exam_df.loc[row, 'pts'] = marks * 100
+    exam_df.loc[row, 'words'] = len(words)
     exam_df.loc[row, 'lang'] = rev
 
     writer = pd.ExcelWriter('/Users/aleksejgukov/Desktop/dutch.xlsx', engine='xlsxwriter')
