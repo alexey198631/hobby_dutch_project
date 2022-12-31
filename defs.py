@@ -28,7 +28,7 @@ def next_load():  # load data from existing file
         exam_df['n#'] = 0
         exam_df['date'] = 0
         exam_df['size'] = 0
-        exam_df['pts'] = 0
+        exam_df['%'] = 0
         exam_df['words'] = 0
         exam_df['lang'] = 0
 
