@@ -47,7 +47,7 @@ def exam_cycle(sample_of_words, rever):
         if temp[0]:
             print("\nRIGHT!")
             right_ans = right_ans + temp[1]
-            print(f'{right_ans} from {len(sample_of_words)}')
+            print(f'\n{right_ans} from {len(sample_of_words)}')
         else:
             print("\nWRONG!")
             print(f'\n{i}')
@@ -62,7 +62,6 @@ def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e):
         row = exam_df.loc[:, 'n#'][-1:].values[0]
     except:
         row = 0
-
 
     exam_df.loc[row, 'n#'] = row + 1
     exam_df.loc[row, 'date'] = datetime.now()

@@ -23,9 +23,6 @@ except:
     lesson_df = initial_load()[1]
     exist = initial_load()[2]
 
-# print(words.head(5),exist)
-
-
 
 wordList = loadWords(words, exist)
 
