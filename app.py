@@ -2,11 +2,20 @@ from datetime import datetime
 from defs import *
 from cls import *
 from sound import *
+from exam import *
+
+
+exm = str(input('Is it time to have an exam? - enter "yes" if it is! '))
+
+if exm == 'yes':
+    exam_mode()
+
 
 try:
     words = next_load()[0]
     lesson_df = next_load()[1]
     exist = next_load()[2]
+    exam_df = next_load()[3]
 
 except:
 
@@ -17,19 +26,19 @@ except:
 
 wordList = loadWords(words, exist)
 
-
 try:
     ran = [i for i in range(1, (lesson_df.loc[:, 'lesson'][-1:].values[0]) + 1)]
     passed_lessons = next_lesson(lesson_df)[0]  # [1,2,3,4,....]
     repeat = 0
 
-    repeat = int(input(f"Do you want to repeat one from passed lessons, if yes type 1 - {next_lesson(lesson_df)[1] - 1}, 999 - random choice from all learned words "))
+    repeat = int(input(
+        f"Do you want to repeat one from passed lessons, if yes type 1 - {next_lesson(lesson_df)[1] - 1}, 999 - random choice from all learned words "))
 
 except:
     pass
 
 try:
-    #lessonNumber = Lesson((lesson_df.loc[:, 'lesson'][-1:].values[0]) + 1)
+    # lessonNumber = Lesson((lesson_df.loc[:, 'lesson'][-1:].values[0]) + 1)
     if repeat in ran:
         lessonNumber = Lesson(repeat)
         sample = reps(repeat, lesson_df, wordList)
@@ -51,7 +60,6 @@ except:
 
 print('Lesson #:', lessonNumber.getNumber())
 
-
 [x.addAppear() for x in sample]
 lessonNumber.wlist([x.getWord() for x in save])
 lessonNumber.length_of_lesson(lesson_length(sample))
@@ -64,7 +72,7 @@ lessonNumber.inter(datetime.now())
 plotting(sample)
 lessonNumber.add_pts(cycle(sample, rever=1))
 lessonNumber.finish(datetime.now())
-final_creation(exist, words, wordList, lessonNumber, lesson_df, save)
+final_creation(exist, words, wordList, lessonNumber, lesson_df, save, exam_df)
 place(lesson_df, repeat)
 if repeat == 0:
     listening_lesson(lessonNumber.getNumber(), [x.getWord() for x in save], [x.getTranslation() for x in save])

@@ -20,9 +20,21 @@ def next_load():  # load data from existing file
     words = words.loc[:, 'word':]
     lesson_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='lesson')
     lesson_df = lesson_df.loc[:, 'lesson':]
+    try:
+        exam_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='exams')
+        exam_df = exam_df.loc[:,'n#':]
+    except:
+        exam_df = pd.DataFrame()
+        exam_df['n#'] = 0
+        exam_df['date'] = 0
+        exam_df['size'] = 0
+        exam_df['%'] = 0
+        exam_df['words'] = 0
+        exam_df['lang'] = 0
+
     exist = 'yes'
 
-    return words, lesson_df, exist
+    return words, lesson_df, exist, exam_df
 
 
 def loadWords(df_words, temp):  # data frame from xlsx file with words, it creates list of class Words
@@ -241,7 +253,7 @@ def place(df, rep):
           ')
 
 
-def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample):
+def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam_df):
     if exist == 'yes':
         dutch = words.copy()
 
@@ -305,6 +317,7 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample):
     writer = pd.ExcelWriter('/Users/aleksejgukov/Desktop/dutch.xlsx', engine='xlsxwriter')
     dutch.to_excel(writer, sheet_name='update')
     lesson_df.to_excel(writer, sheet_name='lesson')
+    exam_df.to_excel(writer, sheet_name='exams')
     writer.save()
 
     for w in sample:
