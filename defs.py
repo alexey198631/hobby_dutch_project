@@ -1,4 +1,5 @@
 import pandas as pd
+import math
 from cls import *
 from word_plot import *
 
@@ -320,10 +321,21 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam
     exam_df.to_excel(writer, sheet_name='exams')
     writer.save()
 
+    temp = []
     for w in sample:
-        print(w, '\n')
+        try:
+            math.isnan(w.getTyp())
+            temp.append(w)
+        except:
+            print(w.getTyp(), w)
+    for t in temp:
+        print(t)
+
     for w in sample:
-        print(w.getExample(), '\n')
+        try:
+            math.isnan(w.getExample_nl())
+        except:
+            print(w.getWord(), '->', w.getExample_nl(), '->', w.getExample_en(), '\n')
 
     print('Lesson #:', lessonNumber.getNumber(), 'time spent:', lessonNumber.getTime(), 'points: ',
           lessonNumber.getPoints(), '\n')

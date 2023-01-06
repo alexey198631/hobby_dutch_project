@@ -60,8 +60,11 @@ class Words(object):
     def getSuccess(self):
         return self.success
 
-    def getExample(self):
-        return f'{self.example}: {self.example_translation}'
+    def getExample_nl(self):
+        return self.example
+
+    def getExample_en(self):
+        return self.example_translation
 
     def getWeight(self):
         if self.trial_d == 0 and self.trial_r == 0:
@@ -76,7 +79,7 @@ class Words(object):
         return f'{self.word}: {self.appear}, {self.trial_d + self.trial_r} / {self.success}'
 
     def __str__(self):
-        return f'{self.typ} {self.word} : {self.translation}'
+        return f'{self.word} : {self.translation}'
 
 
 class Lesson(object):
