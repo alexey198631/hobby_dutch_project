@@ -339,6 +339,8 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam
     for t in temp:
         print(t)
 
+    print('\n', 'EXAMPLES', '\n')
+
     for w in sample:
         try:
             math.isnan(w.getExample_nl())
