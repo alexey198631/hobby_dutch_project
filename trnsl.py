@@ -1,3 +1,5 @@
+# this additional file can be used for word translation. It was necessary to translate English versions of word to
+# Russian
 from googletrans import Translator
 from defs import *
 

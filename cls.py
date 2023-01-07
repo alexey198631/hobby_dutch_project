@@ -1,3 +1,4 @@
+# two main classes for the app
 class Words(object):
 
     """The class for all words from dictionary. Each word a type, a translation, an example,

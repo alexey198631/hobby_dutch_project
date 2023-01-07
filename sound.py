@@ -35,3 +35,5 @@ def listening_lesson(lesson_number, word, translation):
             nums[j].write_to_fp(f)
             speak_word[j].write_to_fp(f)
             speak_translation[j].write_to_fp(f)
+
+    print('You can find the sound of the last lesson in /Documents/Lessons/')

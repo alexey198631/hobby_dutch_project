@@ -1,3 +1,4 @@
+# this code is not necessary for the app. I created it just to create sound files after some time.
 from sound import *
 from defs import *
 
@@ -29,6 +30,7 @@ def reps_sound(repeat, lesson_df, wordList):
                 t_repeat.append(w.getTranslation())
                 counter += 1
     return s_repeat, t_repeat
+
 
 for les in repeats:
     print(les)

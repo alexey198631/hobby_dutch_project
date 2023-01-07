@@ -1,3 +1,4 @@
+# it is going to be replaced by GUI app some day
 import matplotlib.pyplot as plt
 import random
 

@@ -77,4 +77,4 @@ place(lesson_df, repeat)
 if repeat == 0:
     listening_lesson(lessonNumber.getNumber(), [x.getWord() for x in save], [x.getTranslation() for x in save])
 else:
-    pass
+    print('Goodbay!')
