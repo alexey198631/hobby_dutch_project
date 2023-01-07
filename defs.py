@@ -1,5 +1,6 @@
 import pandas as pd
 import math
+import re
 from cls import *
 from word_plot import *
 
@@ -327,7 +328,14 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam
             math.isnan(w.getTyp())
             temp.append(w)
         except:
-            print(w.getTyp(), w)
+            if re.search(r'de', w.getTyp()) and not re.search(r'het', w.getTyp()):
+                print('de', w)
+            elif re.search(r'het', w.getTyp()) and not re.search(r'de', w.getTyp()):
+                print('het', w)
+            elif re.search(r'het', w.getTyp()) and re.search(r'de', w.getTyp()):
+                print('de/het', w)
+            else:
+                print(w)
     for t in temp:
         print(t)
 
