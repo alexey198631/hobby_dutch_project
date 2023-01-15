@@ -2,9 +2,9 @@
 from sound import *
 from defs import *
 
-words = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='update')
+words = pd.read_excel('dutch.xlsx', sheet_name='update')
 words = words.loc[:, 'word':]
-lesson_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='lesson')
+lesson_df = pd.read_excel('dutch.xlsx', sheet_name='lesson')
 lesson_df = lesson_df.loc[:, 'lesson':]
 
 wordList = loadWords(words, 'yes')

@@ -19,12 +19,12 @@ def initial_load() -> object:  # load data from init file - xlsx with words
 
 
 def next_load():  # load data from existing file
-    words = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='update')
+    words = pd.read_excel('dutch.xlsx', sheet_name='update')
     words = words.loc[:, 'word':]
-    lesson_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='lesson')
+    lesson_df = pd.read_excel('dutch.xlsx', sheet_name='lesson')
     lesson_df = lesson_df.loc[:, 'lesson':]
     try:
-        exam_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='exams')
+        exam_df = pd.read_excel('dutch.xlsx', sheet_name='exams')
         exam_df = exam_df.loc[:,'n#':]
     except:
         exam_df = pd.DataFrame()
@@ -317,7 +317,7 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam
         lesson_df.loc[0, 'list_of_words'] = list_to_list(lessonNumber.getList())
         lesson_df.loc[0, 'r'] = lessonNumber.getNumber()
 
-    writer = pd.ExcelWriter('/Users/aleksejgukov/Desktop/dutch.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('dutch.xlsx', engine='xlsxwriter')
     dutch.to_excel(writer, sheet_name='update')
     lesson_df.to_excel(writer, sheet_name='lesson')
     exam_df.to_excel(writer, sheet_name='exams')

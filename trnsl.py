@@ -5,9 +5,9 @@ from defs import *
 
 translator = Translator()
 
-words = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='update')
+words = pd.read_excel('dutch.xlsx', sheet_name='update')
 words = words.loc[:, 'word':]
-lesson_df = pd.read_excel('/Users/aleksejgukov/Desktop/dutch.xlsx', sheet_name='lesson')
+lesson_df = pd.read_excel('dutch.xlsx', sheet_name='lesson')
 lesson_df = lesson_df.loc[:, 'lesson':]
 
 wordList = loadWords(words, 'yes')
@@ -27,7 +27,7 @@ for word in wordList:
 
     if count % 100 == 0:
         df_1 = pd.DataFrame.from_dict(final_1, orient='index')
-        writer = pd.ExcelWriter('/Users/aleksejgukov/Desktop/temp.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter('temp.xlsx', engine='xlsxwriter')
         df_1.to_excel(writer, sheet_name='1')
         writer.save()
 
@@ -36,6 +36,6 @@ for word in wordList:
 
 df_1 = pd.DataFrame.from_dict(final_1, orient='index')
 #
-writer = pd.ExcelWriter('/Users/aleksejgukov/Desktop/final.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter('final.xlsx', engine='xlsxwriter')
 df_1.to_excel(writer, sheet_name='1')
 writer.save()
