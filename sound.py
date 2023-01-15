@@ -29,11 +29,11 @@ def listening_lesson(lesson_number, word, translation):
     for translation in list_of_translations:
         speak_translation.append(gTTS(text=translation, lang='en', slow=True))
 
-    with open(f'/Users/aleksejgukov/Documents/Lessons/Lesson_{lesson_number}_auto.mp3', 'wb') as f:
+    with open(f'data_files/Lessons/Lesson_{lesson_number}_auto.mp3', 'wb') as f:
         first_speak.write_to_fp(f)
         for j in range(len(speak_word)):
             nums[j].write_to_fp(f)
             speak_word[j].write_to_fp(f)
             speak_translation[j].write_to_fp(f)
 
-    print('You can find the sound of the last lesson in /Documents/Lessons/')
+    print('You can find the sound of the last lesson in Lessons/')

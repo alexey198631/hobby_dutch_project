@@ -11,7 +11,7 @@ def initial_load() -> object:  # load data from init file - xlsx with words
 
     :rtype: object
     """
-    words = pd.read_excel('init_words.xlsx', sheet_name='words')
+    words = pd.read_excel('data_files/init_words.xlsx', sheet_name='words')
     lesson_df = pd.DataFrame()
     exist = 'no'
 
@@ -19,13 +19,13 @@ def initial_load() -> object:  # load data from init file - xlsx with words
 
 
 def next_load():  # load data from existing file
-    words = pd.read_excel('dutch.xlsx', sheet_name='update')
+    words = pd.read_excel('data_files/dutch.xlsx', sheet_name='update')
     words = words.loc[:, 'word':]
-    lesson_df = pd.read_excel('dutch.xlsx', sheet_name='lesson')
+    lesson_df = pd.read_excel('data_files/dutch.xlsx', sheet_name='lesson')
     lesson_df = lesson_df.loc[:, 'lesson':]
     try:
-        exam_df = pd.read_excel('dutch.xlsx', sheet_name='exams')
-        exam_df = exam_df.loc[:,'n#':]
+        exam_df = pd.read_excel('data_files/dutch.xlsx', sheet_name='exams')
+        exam_df = exam_df.loc[:, 'n#':]
     except:
         exam_df = pd.DataFrame()
         exam_df['n#'] = 0
@@ -293,6 +293,7 @@ def place(df, rep, t=0, cond=0):
 
 
 def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam_df):
+
     if exist == 'yes':
         dutch = words.copy()
 
@@ -353,7 +354,7 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam
         lesson_df.loc[0, 'list_of_words'] = list_to_list(lessonNumber.getList())
         lesson_df.loc[0, 'r'] = lessonNumber.getNumber()
 
-    writer = pd.ExcelWriter('dutch.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('data_files/dutch.xlsx', engine='xlsxwriter')
     dutch.to_excel(writer, sheet_name='update')
     lesson_df.to_excel(writer, sheet_name='lesson')
     exam_df.to_excel(writer, sheet_name='exams')

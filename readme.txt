@@ -1,1 +1,0 @@
-The app was created to learn dutch words in competition mode with yourself. 
