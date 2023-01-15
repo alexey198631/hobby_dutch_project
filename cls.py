@@ -137,6 +137,9 @@ class Lesson(object):
     def getPoints(self):
         return self.pts + 1500 - int((self.finish - self.start).seconds)
 
+    def getInterTime(self):
+        return int((self.inter - self.start).seconds)
+
     def wlist(self, list_of_words):
         self.list_of_words = list_of_words
 

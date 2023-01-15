@@ -153,7 +153,7 @@ def cycle(sample_of_words, rever):
         else:
             if len(s) != 0:
                 plotting(s)
-    print(p)
+    print(p,'\n')
     return p
 
 
@@ -235,7 +235,30 @@ def all_learned(lesson_df, wordList):
     return s_repeat
 
 
-def place(df, rep):
+def for_inter_time(df, lessonNumber):
+    ln = lessonNumber.getNumber()
+    kt = lessonNumber.getInterTime()
+    lessn = df.copy()
+    lessn = lessn.assign(inter_pts=lambda x: ((lessn['inter'] - lessn['start'])))
+    lessn['points'] = lessn['inter_pts'].apply(lambda x: x.seconds)
+
+    row = lessn.index.values[-1]
+
+    lessn.loc[row, 'lesson'] = ln
+    lessn.loc[row, 'start'] = 0
+    lessn.loc[row, 'inter'] = 0
+    lessn.loc[row, 'finish'] = 0
+    lessn.loc[row, 'known'] = 0
+    lessn.loc[row, 'points'] = kt
+    lessn.loc[row, 'length'] = 0
+    lessn.loc[row, 'time'] = 0
+    lessn.loc[row, 'list_of_words'] = 0
+    lessn.loc[row, 'r'] = 0
+
+    return lessn
+
+
+def place(df, rep, t=0, cond=0):
     lesson = df.copy()
     if rep == 0:
         mod_lesson = lesson[lesson.known != 25]
@@ -243,17 +266,30 @@ def place(df, rep):
     else:
         mod_lesson = lesson[lesson.known == 25]
 
-    last = mod_lesson.loc[:, "r"][-1:].values[0]
-    last_points = mod_lesson.loc[:, "points"][-1:].values[0]
-    mod_lesson = mod_lesson.sort_values(by='points', ascending=False, ignore_index=True)
-    place = mod_lesson[mod_lesson['points'] == last_points].index[0]
+    if cond == 0:
+        last = mod_lesson.loc[:, "r"][-1:].values[0]
+        last_points = mod_lesson.loc[:, "points"][-1:].values[0]
+        mod_lesson = mod_lesson.sort_values(by='points', ascending=False, ignore_index=True)
+        place = mod_lesson[mod_lesson['points'] == last_points].index[0]
 
-    print(f'1. Lesson {mod_lesson.loc[0, "r"]:.0f} - {mod_lesson.loc[0, "points"]:.0f} pts \
-          \n2. Lesson {mod_lesson.loc[1, "r"]:.0f} - {mod_lesson.loc[1, "points"]:.0f} pts \
-          \n3. Lesson {mod_lesson.loc[2, "r"]:.0f} - {mod_lesson.loc[2, "points"]:.0f} pts \
-          \n------------------------ \
-          \n{(place + 1):.0f}. Lesson {last:.0f} - {last_points:.0f} pts \
-          ')
+        print(f'1. Lesson {mod_lesson.loc[0, "r"]:.0f} - {mod_lesson.loc[0, "points"]:.0f} pts \
+              \n2. Lesson {mod_lesson.loc[1, "r"]:.0f} - {mod_lesson.loc[1, "points"]:.0f} pts \
+              \n3. Lesson {mod_lesson.loc[2, "r"]:.0f} - {mod_lesson.loc[2, "points"]:.0f} pts \
+              \n------------------------ \
+              \n{(place + 1):.0f}. Lesson {last:.0f} - {last_points:.0f} pts \
+              ')
+    elif cond != 0:
+        last_points = mod_lesson.loc[:, "points"][-1:].values[0]
+        mod_lesson = mod_lesson.sort_values(by='points', ascending=True, ignore_index=True)
+        place = mod_lesson[mod_lesson['points'] == last_points].index[0]
+
+
+        print(f'1. Lesson {mod_lesson.loc[0, "r"]:.0f} - {mod_lesson.loc[0, "points"]:.0f} sec \
+                      \n2. Lesson {mod_lesson.loc[1, "r"]:.0f} - {mod_lesson.loc[1, "points"]:.0f} sec \
+                      \n3. Lesson {mod_lesson.loc[2, "r"]:.0f} - {mod_lesson.loc[2, "points"]:.0f} sec \
+                      \n------------------------ \
+                      \n{t} sec, place {(place + 1):.0f}, difference {- int(mod_lesson.loc[0, "points"]) + int(t)} \
+                      ')
 
 
 def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam_df):
