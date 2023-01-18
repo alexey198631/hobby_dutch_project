@@ -70,7 +70,7 @@ def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e):
     exam_df.loc[row, 'words'] = l_w_e
     exam_df.loc[row, 'lang'] = rev
 
-    writer = pd.ExcelWriter('/Users/aleksejgukov/Desktop/dutch.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('data_files/dutch.xlsx', engine='xlsxwriter')
     words.to_excel(writer, sheet_name='update')
     lesson_df.to_excel(writer, sheet_name='lesson')
     exam_df.to_excel(writer, sheet_name='exams')
