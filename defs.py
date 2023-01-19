@@ -236,7 +236,7 @@ def all_learned(lesson_df, wordList):
 
 
 def for_inter_time(df, lessonNumber):
-    ln = lessonNumber.getNumber()
+    ln = lessonNumber
     kt = lessonNumber.getInterTime()
     lessn = df.copy()
     lessn = lessn.assign(inter_pts=lambda x: ((lessn['inter'] - lessn['start'])))
