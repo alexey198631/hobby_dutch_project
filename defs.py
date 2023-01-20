@@ -387,3 +387,17 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam
 
     print('Lesson #:', lessonNumber.getNumber(), 'time spent:', lessonNumber.getTime(), 'points: ',
           lessonNumber.getPoints(), '\n')
+
+
+def initial_weight(sample):
+    sample_weights = {}
+    for w in sample:
+        sample_weights[w.getWord()] = w.getWeight()
+    for w in sample:
+        print(w.getWord(), '=', round(w.getWeight(), 1))
+    return sample_weights
+
+
+def nine_nine_nine(sample, sample_weights):
+    for w in sample:
+        print(w.getWord(), '=', round(sample_weights[w.getWord()], 1), '->', round(w.getWeight(), 1))

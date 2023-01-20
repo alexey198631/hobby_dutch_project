@@ -47,6 +47,7 @@ try:
         lessonNumber = Lesson(999)
         sample = random_sample(all_learned(lesson_df, wordList), 25)
         save = sample.copy()
+        sample_weights = initial_weight(save)
     else:
         lessonNumber = Lesson(next_lesson(lesson_df)[1])
         sample = random_sample(wordList, 25)
@@ -77,5 +78,7 @@ final_creation(exist, words, wordList, lessonNumber, lesson_df, save, exam_df)
 place(lesson_df, repeat)
 if repeat == 0:
     listening_lesson(lessonNumber.getNumber(), [x.getWord() for x in save], [x.getTranslation() for x in save])
+elif repeat == 999:
+    nine_nine_nine(sample, sample_weights)
 else:
     print('Goodbay!')
