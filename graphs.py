@@ -37,7 +37,7 @@ df = df.reset_index()
 plt.figure(figsize=(16, 10), dpi=80)
 plt.get_current_fig_manager().set_window_title('Words per Date')
 plt.bar(df['date'], df['total_words'], color='orange')
-plt.grid(linestyle='--', color='blue')
+plt.grid(linestyle='--', color='blue', alpha=.3)
 plt.xticks(rotation=90)
 plt.xlabel('Date')
 plt.ylabel('Words Total')
@@ -50,4 +50,7 @@ for i in range(len(df)):
         plt.text(x=i, y=df.loc[i, 'total_words'], s=df.loc[i, 'total_words'] - df.loc[i - 1, 'total_words'],
                  ha='center', va='bottom', color='black', size=8)
 
+current_time = datetime.now().strftime("%d_%m_%Y")
+
+plt.savefig(f'data_files/graph_{current_time}.png', dpi=300, bbox_inches='tight')
 plt.show()
