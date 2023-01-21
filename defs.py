@@ -190,7 +190,7 @@ def random_sample(list_of_words, n):
     st = len(set([x.getWord() for x in sample]))
     count = 0
     while ln != st:
-        print('count = ', count, 'len = ', ln, 'set = ', st)
+        #print('count = ', count, 'len = ', ln, 'set = ', st)
         sample = random.choices(list_of_words, weights=[w.getWeight() for w in list_of_words], k=n)
         st = len(set([x.getWord() for x in sample]))
         count += 1
@@ -393,11 +393,14 @@ def initial_weight(sample):
     sample_weights = {}
     for w in sample:
         sample_weights[w.getWord()] = w.getWeight()
+    print('\n')
     for w in sample:
         print(w.getWord(), '=', round(w.getWeight(), 1))
+    print('\n')
     return sample_weights
 
 
 def nine_nine_nine(sample, sample_weights):
+    print('\n')
     for w in sample:
         print(w.getWord(), '=', round(sample_weights[w.getWord()], 1), '->', round(w.getWeight(), 1))

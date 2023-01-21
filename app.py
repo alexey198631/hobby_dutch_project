@@ -80,5 +80,6 @@ if repeat == 0:
     listening_lesson(lessonNumber.getNumber(), [x.getWord() for x in save], [x.getTranslation() for x in save])
 elif repeat == 999:
     nine_nine_nine(sample, sample_weights)
+    print('\n')
 else:
     print('Goodbay!')

@@ -10,7 +10,7 @@ def exam_random_sample(list_of_words, n):
     st = len(set([x.getWord() for x in sample]))
     count = 0
     while ln != st:
-        print('count = ', count, 'len = ', ln, 'set = ', st)
+        #print('count = ', count, 'len = ', ln, 'set = ', st)
         sample = random.choices(list_of_words, weights=None, k=n)
         st = len(set([x.getWord() for x in sample]))
         count += 1
