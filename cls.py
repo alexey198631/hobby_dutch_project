@@ -151,3 +151,27 @@ class Lesson(object):
 
     def getLength_of_lesson(self):
         return self.lol
+
+
+# class for werkwoorden
+class Verbs(Words):
+    def __init__(self, word, second, third, translation, appear, trial_d, trial_r, success,
+                 weight):
+        self.word = word
+        self.second = second
+        self.third = third
+        self.translation = translation
+        self.appear = appear
+        self.trial_d = trial_d
+        self.trial_r = trial_r
+        self.success = success
+        self.weight = weight
+
+    def getSecond(self):
+        return self.second
+
+    def getThird(self):
+        return self.third
+
+    def __str__(self):
+        return f'{self.translation} : {self.word}  -> {self.second} - >  {self.third}'

@@ -3,12 +3,15 @@ from defs import *
 from cls import *
 from sound import *
 from exam import *
+from werkwoorden import *
 
 
-exm = str(input('Is it time to have an exam? - enter "yes" if it is! '))
+exm = str(input('Is it time to have an exam or werkwoorden? - enter "yes" for exam and "verb" for irregula verbs! '))
 
 if exm == 'yes':
     exam_mode()
+elif exm == 'verb':
+    verb_mode()
 
 
 try:
@@ -16,6 +19,7 @@ try:
     lesson_df = next_load()[1]
     exist = next_load()[2]
     exam_df = next_load()[3]
+    verbs_df = next_load()[4]
 
 except:
 
@@ -74,7 +78,7 @@ place(for_inter_time(lesson_df, lessonNumber), repeat, lessonNumber.getInterTime
 plotting(sample)
 lessonNumber.add_pts(cycle(sample, rever=1))
 lessonNumber.finish(datetime.now())
-final_creation(exist, words, wordList, lessonNumber, lesson_df, save, exam_df)
+final_creation(exist, words, wordList, lessonNumber, lesson_df, save, exam_df, verbs_df)
 place(lesson_df, repeat)
 if repeat == 0:
     listening_lesson(lessonNumber.getNumber(), [x.getWord() for x in save], [x.getTranslation() for x in save])

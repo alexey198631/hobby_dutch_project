@@ -23,9 +23,12 @@ def next_load():  # load data from existing file
     words = words.loc[:, 'word':]
     lesson_df = pd.read_excel('data_files/dutch.xlsx', sheet_name='lesson')
     lesson_df = lesson_df.loc[:, 'lesson':]
+    verbs_df = pd.read_excel('data_files/dutch.xlsx', sheet_name='verbs')
+    verbs_df = verbs_df.loc[:, 'translation':]
     try:
         exam_df = pd.read_excel('data_files/dutch.xlsx', sheet_name='exams')
         exam_df = exam_df.loc[:, 'n#':]
+
     except:
         exam_df = pd.DataFrame()
         exam_df['n#'] = 0
@@ -37,7 +40,7 @@ def next_load():  # load data from existing file
 
     exist = 'yes'
 
-    return words, lesson_df, exist, exam_df
+    return words, lesson_df, exist, exam_df, verbs_df
 
 
 def loadWords(df_words, temp):  # data frame from xlsx file with words, it creates list of class Words
@@ -55,6 +58,16 @@ def loadWords(df_words, temp):  # data frame from xlsx file with words, it creat
                 Words(df_words.iloc[i, 0], df_words.iloc[i, 1], df_words.iloc[i, 2], df_words.iloc[i, 5],
                       df_words.iloc[i, 3],
                       df_words.iloc[i, 4], 0, 0, 0, 0, 100))
+    return list_of_words
+
+
+def loadVerbs(df_words):  # data frame from xlsx file with verbs, it creates list of class Verbs
+    list_of_words = []
+    for i in range(len(df_words)):
+        list_of_words.append(
+            Verbs(df_words.iloc[i, 1], df_words.iloc[i, 2], df_words.iloc[i, 3], df_words.iloc[i, 0],
+                  df_words.iloc[i, 4],
+                  df_words.iloc[i, 5], df_words.iloc[i, 6], df_words.iloc[i, 7], df_words.iloc[i, 8]))
     return list_of_words
 
 
@@ -292,7 +305,7 @@ def place(df, rep, t=0, cond=0):
                       ')
 
 
-def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam_df):
+def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam_df, verbs_df):
 
     if exist == 'yes':
         dutch = words.copy()
@@ -358,6 +371,7 @@ def final_creation(exist, words, wordList, lessonNumber, lesson_df, sample, exam
     dutch.to_excel(writer, sheet_name='update')
     lesson_df.to_excel(writer, sheet_name='lesson')
     exam_df.to_excel(writer, sheet_name='exams')
+    verbs_df.to_excel(writer, sheet_name='verbs')
     writer.save()
 
     temp = []
