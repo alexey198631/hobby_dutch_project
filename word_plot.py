@@ -159,6 +159,6 @@ def plotting_verbs(sample_of_words):  # sample_of_words - object of Class Verbs
             plt.text(23, y_c, sample_of_words[i].getWeight(), fontsize=12, color='black')
 
         except:
-            print('hi')
+            pass
 
     plt.show()

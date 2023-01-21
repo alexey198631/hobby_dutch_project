@@ -69,9 +69,9 @@ class Words(object):
 
     def getWeight(self):
         if self.trial_d == 0 and self.trial_r == 0:
-            return self.weight
+            return round(self.weight, 2)
         else:
-            return 100 - (self.success / (self.trial_d + self.trial_r)) * 100
+            return round((100 - (self.success / (self.trial_d + self.trial_r)) * 100), 2)
 
     def __len__(self):
         return len(f'{self.word} -> {self.translation}')
@@ -155,8 +155,11 @@ class Lesson(object):
 
 # class for werkwoorden
 class Verbs(Words):
+
+    ts: object
+
     def __init__(self, word, second, third, translation, appear, trial_d, trial_r, success,
-                 weight):
+                 weight, timespent):
         self.word = word
         self.second = second
         self.third = third
@@ -166,12 +169,19 @@ class Verbs(Words):
         self.trial_r = trial_r
         self.success = success
         self.weight = weight
+        self.timespent = timespent
 
     def getSecond(self):
         return self.second
 
     def getThird(self):
         return self.third
+
+    def addTimeSpend(self, t):
+        self.timespent += t
+
+    def getTimeSpend(self):
+        return int(self.timespent)
 
     def __str__(self):
         return f'{self.translation} : {self.word}  -> {self.second} - >  {self.third}'

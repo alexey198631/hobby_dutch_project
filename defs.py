@@ -67,7 +67,7 @@ def loadVerbs(df_words):  # data frame from xlsx file with verbs, it creates lis
         list_of_words.append(
             Verbs(df_words.iloc[i, 1], df_words.iloc[i, 2], df_words.iloc[i, 3], df_words.iloc[i, 0],
                   df_words.iloc[i, 4],
-                  df_words.iloc[i, 5], df_words.iloc[i, 6], df_words.iloc[i, 7], df_words.iloc[i, 8]))
+                  df_words.iloc[i, 5], df_words.iloc[i, 6], df_words.iloc[i, 7], df_words.iloc[i, 8], df_words.iloc[i, 9]))
     return list_of_words
 
 
