@@ -57,7 +57,7 @@ def exam_cycle(sample_of_words, rever):
     return right_ans / len(sample_of_words)
 
 
-def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e):
+def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e, verbs_df):
     try:
         row = exam_df.loc[:, 'n#'][-1:].values[0]
     except:
@@ -74,6 +74,7 @@ def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e):
     words.to_excel(writer, sheet_name='update')
     lesson_df.to_excel(writer, sheet_name='lesson')
     exam_df.to_excel(writer, sheet_name='exams')
+    verbs_df.to_excel(writer, sheet_name='verbs')
     writer.save()
 
 
@@ -83,6 +84,7 @@ def exam_mode():
         lesson_df = next_load()[1]
         exist = next_load()[2]
         exam_df = next_load()[3]
+        verbs_df = next_load()[4]
 
     except ValueError:
         print("Oops!  You do not know anything yet! ")
@@ -108,6 +110,6 @@ def exam_mode():
 
     sample = exam_random_sample(wordList, sample_size)
     marks = exam_cycle(sample, rever)
-    exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e)
+    exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e, verbs_df)
     print(f'{round(marks, 2)*100}%')
     quit()

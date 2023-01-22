@@ -11,7 +11,7 @@ wordList = loadWords(words, 'yes')
 
 repeats = list(lesson_df.r)
 set(repeats).remove(999)
-repeats = [123]
+repeats = [133]
 
 
 def reps_sound(repeat, lesson_df, wordList):
