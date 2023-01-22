@@ -1,5 +1,5 @@
 """
-Programm addition to learn different form of irregular verbs in Dutch
+Program addition to learn different form of irregular verbs in Dutch
 
 """
 from datetime import datetime
