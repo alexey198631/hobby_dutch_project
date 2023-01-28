@@ -418,3 +418,22 @@ def nine_nine_nine(sample, sample_weights):
     print('\n')
     for w in sample:
         print(w.getWord(), '=', round(sample_weights[w.getWord()], 1), '->', round(w.getWeight(), 1))
+
+
+def bottom_five(lesson_df):
+    # this function determine the worst lessons 5 which were not repeated
+    data_words_lesson_df = lesson_df.copy()
+    # keeping necessary columns only and sorting them descending
+    data_words_lesson_df = data_words_lesson_df.loc[:, ['points', 'r']]
+    data_words_lesson_df = data_words_lesson_df.sort_values(by='points', ascending=False, ignore_index=True)
+    mask = data_words_lesson_df.duplicated(subset='r', keep='first')
+    # keeping only the worst lessons in rating, anti top 5
+    df = data_words_lesson_df[~mask]
+    df = df.reset_index(drop=True)
+    sml = df.nsmallest(5, columns='points')
+    # renaming for printing, to understand how many points each lesson has
+    sml.rename(columns={"points": "lesson/points"}, inplace=True)
+    # key of the dictionary should be number of the lesson
+    sml.set_index("r", inplace=True)
+    dct = sml.to_dict()
+    return dct

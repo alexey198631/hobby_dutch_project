@@ -35,8 +35,10 @@ try:
     passed_lessons = next_lesson(lesson_df)[0]  # [1,2,3,4,....]
     repeat = 0
 
+    anti_top_5 = bottom_five(lesson_df)
     repeat = int(input(
-        f"Do you want to repeat one from passed lessons, if yes type 1 - {next_lesson(lesson_df)[1] - 1}, 999 - random choice from all learned words "))
+        f"Do you want to repeat one from passed lessons, if yes type 1 - {next_lesson(lesson_df)[1] - 1}, 999 - random choice from all learned words \n Anti TOP5 {anti_top_5}\n "))
+
 
 except:
     pass
