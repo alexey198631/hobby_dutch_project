@@ -83,6 +83,8 @@ lessonNumber.finish(datetime.now())
 final_creation(exist, words, wordList, lessonNumber, lesson_df, save, exam_df, verbs_df)
 place(lesson_df, repeat)
 if repeat == 0:
+    lesson_progress(lesson_df)
+    words_progress(lesson_df)
     listening_lesson(lessonNumber.getNumber(), [x.getWord() for x in save], [x.getTranslation() for x in save])
 elif repeat == 999:
     nine_nine_nine(sample, sample_weights)

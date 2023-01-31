@@ -7,6 +7,7 @@ import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt
 
+
 # import data from existing leaning file with lesson sheet
 lesson_df = pd.read_excel('data_files/dutch.xlsx', sheet_name='lesson')
 
