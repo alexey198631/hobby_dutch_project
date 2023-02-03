@@ -242,7 +242,7 @@ def lesson_progress(df):
 
     # show the plot
     current_time = datetime.now().strftime("%d_%m_%Y")
-    plt.savefig(f'data_files/graph_{current_time}_lesson_{last}.png', dpi=300, bbox_inches='tight')
+    plt.savefig(f'data_files/lesson_graph/graph_{current_time}_lesson_{last}.png', dpi=300, bbox_inches='tight')
     plt.show()
 
 
@@ -292,5 +292,5 @@ def words_progress(df):
 
     current_time = datetime.now().strftime("%d_%m_%Y")
 
-    plt.savefig(f'data_files/words_graph_{current_time}.png', dpi=300, bbox_inches='tight')
+    plt.savefig(f'data_files/words_graph/words_graph_{current_time}.png', dpi=300, bbox_inches='tight')
     plt.show()
