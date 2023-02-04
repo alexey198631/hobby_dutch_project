@@ -69,6 +69,8 @@ def exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e, ve
     exam_df.loc[row, '%'] = marks * 100
     exam_df.loc[row, 'words'] = l_w_e
     exam_df.loc[row, 'lang'] = rev
+    exam_df.loc[row, 'total_weight'] = round(sum([i.getWeight() for i in sample]), 2)
+
 
     writer = pd.ExcelWriter('data_files/dutch.xlsx', engine='xlsxwriter')
     words.to_excel(writer, sheet_name='update')
@@ -109,6 +111,7 @@ def exam_mode():
         print("I'll decide myself!")
 
     sample = exam_random_sample(wordList, sample_size)
+    print(round(sum([i.getWeight() for i in sample]), 2))
     marks = exam_cycle(sample, rever)
     exam_final_creation(words, lesson_df, exam_df, sample, marks, rev, l_w_e, verbs_df)
     print(f'{round(marks, 2)*100}%')
