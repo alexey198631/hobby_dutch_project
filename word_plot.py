@@ -210,7 +210,7 @@ def lesson_progress(df):
                      color='black', size=7, rotation=90)
 
     plt.grid(linestyle='--', color='lightgrey', alpha=.2)
-    plt.legend(['Consequent'])
+    plt.legend(['Consequent'], loc="upper left")
     plt.xlabel('lesson#')
     plt.ylabel('points')
 
@@ -235,7 +235,7 @@ def lesson_progress(df):
             plt.text(x=i, y=sort.loc[i, 'points'] + 10, s=sort.loc[i, 'points'], ha='center', va='bottom',
                      color='black', size=7, rotation=90)
 
-    plt.legend(['Sorted'])
+    plt.legend(['Sorted'], loc="upper left")
     plt.grid(linestyle='--', color='lightgrey', alpha=.2)
     plt.xticks(rotation=90)
     plt.ylabel('points')
