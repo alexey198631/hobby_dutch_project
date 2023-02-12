@@ -416,8 +416,12 @@ def initial_weight(sample):
 
 def nine_nine_nine(sample, sample_weights):
     print('\n')
+    count = 0
     for w in sample:
+        if round(sample_weights[w.getWord()], 1) > round(w.getWeight(), 1):
+            count += 1
         print(w.getWord(), '=', round(sample_weights[w.getWord()], 1), '->', round(w.getWeight(), 1))
+    print(f'Progress for {count} words from {len(sample)}. Good job!')
 
 
 def bottom_five(lesson_df):
