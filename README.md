@@ -13,7 +13,8 @@ If you need to learn words in any language (im my case, it was Dutch), you can c
 this Project files, place into data_files folder xlsx file with words in the
 following columns:
 
-![xlsx_example](/data_files/file.png)
+<image src="/data_files/file.png" alt="xlsx_example">
+
 
 Sheet name = 'words'
 File name = 'init_words.xlsx'
