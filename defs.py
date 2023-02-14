@@ -248,20 +248,20 @@ def all_learned(lesson_df, wordList):
     return s_repeat
 
 
-def for_inter_time(df, lessonNumber):
+def for_inter_time(df, lessonNumber, known):
     ln = lessonNumber.getNumber()
     kt = lessonNumber.getInterTime()
     lessn = df.copy()
     lessn = lessn.assign(inter_pts=lambda x: ((lessn['inter'] - lessn['start'])))
     lessn['points'] = lessn['inter_pts'].apply(lambda x: x.seconds)
 
-    row = lessn.index.values[-1]
+    row = lessn.index.values[-1] + 1
 
     lessn.loc[row, 'lesson'] = ln
     lessn.loc[row, 'start'] = 0
     lessn.loc[row, 'inter'] = 0
     lessn.loc[row, 'finish'] = 0
-    lessn.loc[row, 'known'] = 0
+    lessn.loc[row, 'known'] = known
     lessn.loc[row, 'points'] = kt
     lessn.loc[row, 'length'] = 0
     lessn.loc[row, 'time'] = 0
