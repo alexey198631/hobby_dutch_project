@@ -1,7 +1,6 @@
-# Dutch words game project
+#### MyPython - hobby
 
-#### MyPython
-#### hobby
+# Dutch words game project
 
 ## Project Summary
 

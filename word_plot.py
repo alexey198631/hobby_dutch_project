@@ -168,7 +168,8 @@ def plotting_verbs(sample_of_words):  # sample_of_words - object of Class Verbs
 def lesson_progress(df):
 
     data_words_lesson_df = df.copy()
-    data_words_lesson_df = data_words_lesson_df.loc[:, ['finish', 'points', 'known', 'r']]
+    data_words_lesson_df['relative_known'] = data_words_lesson_df['known'] / 25 * data_words_lesson_df['points']
+    data_words_lesson_df = data_words_lesson_df.loc[:, ['finish', 'points', 'known', 'r', 'relative_known']]
     data_words_lesson_df['date'] = data_words_lesson_df['finish'].apply(lambda x: x.strftime("%d.%m.%Y"))
     conseq = data_words_lesson_df[data_words_lesson_df['known'] != 25]
     conseq = conseq.reset_index()
@@ -202,6 +203,10 @@ def lesson_progress(df):
             color = 'plum'
         elif i == max_pts_ind_con:
             color = 'gold'
+        ax.bar(i, d, color=color)
+
+    for i, d in enumerate(conseq['relative_known']):
+        color = 'darkgrey'
         ax.bar(i, d, color=color)
 
     for i in range(len(conseq)):
