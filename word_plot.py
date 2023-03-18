@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import random
 import numpy as np
 from datetime import datetime
+import pandas as pd
 
 def plotting(sample_of_words):  # sample_of_words - object of Class Words
 
@@ -252,12 +253,22 @@ def lesson_progress(df):
 
 
 def words_progress(df):
-
     lesson = df.copy()
     # extraction necessary information only - date of lesson finish and list of words
     data_words_lesson_df = lesson.loc[:, ['finish', 'list_of_words']]
+    data_words_lesson_df.reset_index(inplace=True)
     data_words_lesson_df['date'] = data_words_lesson_df['finish'].apply(lambda x: x.strftime("%d.%m.%Y"))
     data_words_lesson_df = data_words_lesson_df.loc[:, ['date', 'list_of_words']]
+    data_words_lesson_df['date'] = pd.to_datetime(data_words_lesson_df['date'], format='%d.%m.%Y')
+
+    start_date = data_words_lesson_df.loc[0, 'date']
+    end_date = data_words_lesson_df['date'].iloc[-1]
+
+    date_range = pd.date_range(start=start_date, end=end_date, freq='D')
+    df_dates = pd.DataFrame(date_range, columns=['date'])
+    data_words_lesson_df = pd.merge(df_dates, data_words_lesson_df, on='date', how='left')
+    data_words_lesson_df['list_of_words'].fillna(0, inplace=True)
+
     data_words_lesson_df['total_words'] = 0
 
     # list for unique learned words
@@ -265,17 +276,22 @@ def words_progress(df):
 
     # determination quantity of unique words learned up to date
     for i in range(len(data_words_lesson_df)):
-        temp = data_words_lesson_df.loc[i, 'list_of_words'].split(";")
-        for cw in temp:
-            if cw.strip() not in new_learned_words:
-                new_learned_words.append(cw.strip())
-        data_words_lesson_df.loc[i, 'total_words'] = len(new_learned_words)
+        if data_words_lesson_df.loc[i, 'list_of_words'] != 0:
+            temp = data_words_lesson_df.loc[i, 'list_of_words'].split(";")
+            for cw in temp:
+                if cw.strip() not in new_learned_words:
+                    new_learned_words.append(cw.strip())
+            data_words_lesson_df.loc[i, 'total_words'] = len(new_learned_words)
+        else:
+            data_words_lesson_df.loc[i, 'total_words'] = len(new_learned_words)
 
     # extraction necessary information only - date and quantity of unique words, keeping only final number per day
     data_words_lesson_df = data_words_lesson_df.loc[:, ['date', 'total_words']]
     mask = data_words_lesson_df.duplicated(subset='date', keep='last')
     df = data_words_lesson_df[~mask]
     df = df.reset_index()
+
+    df['date'] = df['date'].dt.strftime('%d.%m.%Y')
 
     # plotting results on a graph
     plt.figure(figsize=(16, 10), dpi=80)
@@ -299,3 +315,7 @@ def words_progress(df):
 
     plt.savefig(f'data_files/words_graph/words_graph_{current_time}.png', dpi=300, bbox_inches='tight')
     plt.show()
+
+#lesson_df = pd.read_excel('data_files/dutch.xlsx', sheet_name='lesson')
+#lesson_df = lesson_df.loc[:, 'lesson':]
+#words_progress(lesson_df)
